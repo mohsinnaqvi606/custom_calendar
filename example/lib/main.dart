@@ -25,6 +25,7 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   bool showEvents = true;
+  bool isExpanded = true;
 
   List<NeatCleanCalendarEvent> _todaysEvents = [
     NeatCleanCalendarEvent(
@@ -123,7 +124,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           todayButtonText: 'Heute',
           allDayEventText: 'Ganztägig',
           multiDayEndText: 'Ende',
-          isExpanded: true,
+          isExpanded: isExpanded,
           expandableDateFormat: 'EEEE, dd. MMMM yyyy',
           onEventSelected: (value) {
             print('Event selected ${value.summary}');
@@ -149,7 +150,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            showEvents = !showEvents;
+            // showEvents = !showEvents;
+            isExpanded = !isExpanded;
           });
         },
         child: Icon(showEvents ? Icons.visibility_off : Icons.visibility),

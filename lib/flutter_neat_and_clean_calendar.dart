@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/date_picker_config.dart';
 import 'package:flutter_neat_and_clean_calendar/provider_image.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 // import 'package:flutter_neat_and_clean_calendar/platform_widgets.dart';
 import './date_utils.dart';
 import './simple_gesture_detector.dart';
@@ -26,6 +27,7 @@ enum DatePickerType { hidden, year, date }
 class Range {
   final DateTime from;
   final DateTime to;
+
   Range(this.from, this.to);
 }
 
@@ -188,17 +190,17 @@ class _CalendarState extends State<Calendar> {
   late List<DateTime> selectedMonthsDays;
   late Iterable<DateTime> selectedWeekDays;
   late Map<DateTime, List<NeatCleanCalendarEvent>>? eventsMap;
+
   // selectedDate is the date, that is currently selected. It is highlighted with a circle.
   DateTime _selectedDate = DateTime.now();
   String? currentMonth;
-  late bool isExpanded;
   String displayMonth = '';
+
   DateTime get selectedDate => _selectedDate;
   List<NeatCleanCalendarEvent>? _selectedEvents;
 
   void initState() {
     super.initState();
-    isExpanded = widget.isExpanded;
 
     _selectedDate = widget.initialDate ?? DateTime.now();
     initializeDateFormatting(widget.locale, null).then((_) => setState(() {
@@ -309,11 +311,11 @@ class _CalendarState extends State<Calendar> {
 
     if (!widget.hideArrows) {
       leftArrow = PlatformIconButton(
-        onPressed: isExpanded ? () => previousMonth(true) : previousWeek,
+        onPressed: widget.isExpanded ? () => previousMonth(true) : previousWeek,
         icon: Icon(Icons.chevron_left),
       );
       rightArrow = PlatformIconButton(
-        onPressed: isExpanded ? () => nextMonth(true) : nextWeek,
+        onPressed: widget.isExpanded ? () => nextMonth(true) : nextWeek,
         icon: Icon(Icons.chevron_right),
       );
     } else {
@@ -466,8 +468,9 @@ class _CalendarState extends State<Calendar> {
 
   List<Widget> calendarBuilder() {
     List<Widget> dayWidgets = [];
-    List<DateTime> calendarDays =
-        isExpanded ? selectedMonthsDays : selectedWeekDays as List<DateTime>;
+    List<DateTime> calendarDays = widget.isExpanded
+        ? selectedMonthsDays
+        : selectedWeekDays as List<DateTime>;
     widget.weekDays.forEach(
       (day) {
         dayWidgets.add(
@@ -557,7 +560,7 @@ class _CalendarState extends State<Calendar> {
     TextStyle? dateStyles;
     final TextStyle? body1Style = Theme.of(context).textTheme.bodyMedium;
 
-    if (isExpanded) {
+    if (widget.isExpanded) {
       final TextStyle body1StyleDisabled = body1Style!.copyWith(
           color: Color.fromARGB(
         100,
@@ -595,7 +598,7 @@ class _CalendarState extends State<Calendar> {
               PlatformIconButton(
                 onPressed: toggleExpanded,
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                icon: isExpanded
+                icon: widget.isExpanded
                     ? Icon(
                         Icons.arrow_drop_up,
                         size: 25.0,
@@ -810,7 +813,7 @@ class _CalendarState extends State<Calendar> {
           ExpansionCrossFade(
             collapsed: calendarGridView,
             expanded: calendarGridView,
-            isExpanded: isExpanded,
+            isExpanded: widget.isExpanded,
           ),
           expansionButtonRow,
           if (widget.showEvents) eventList
@@ -951,15 +954,15 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _onSwipeUp() {
-    if (isExpanded) toggleExpanded();
+    if (widget.isExpanded) toggleExpanded();
   }
 
   void _onSwipeDown() {
-    if (!isExpanded) toggleExpanded();
+    if (!widget.isExpanded) toggleExpanded();
   }
 
   void _onSwipeRight() {
-    if (isExpanded) {
+    if (widget.isExpanded) {
       // Here _launchDateSelectionCallback was not called before. That's why set the
       // "launchCallback" parameter to true.
       previousMonth(true);
@@ -969,7 +972,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _onSwipeLeft() {
-    if (isExpanded) {
+    if (widget.isExpanded) {
       // Here _launchDateSelectionCallback was not called before. That's why set the
       // "launchCallback" parameter to true.
       nextMonth(true);
@@ -979,11 +982,11 @@ class _CalendarState extends State<Calendar> {
   }
 
   void toggleExpanded() {
-    if (widget.isExpandable) {
-      setState(() => isExpanded = !isExpanded);
-      if (widget.onExpandStateChanged != null)
-        widget.onExpandStateChanged!(isExpanded);
-    }
+    // if (widget.isExpandable) {
+    //   setState(() => isExpanded = !isExpanded);
+    //   if (widget.onExpandStateChanged != null)
+    //     widget.onExpandStateChanged!(isExpanded);
+    // }
   }
 
   // The "handleSelectedDateAndUserCallback" method is responsible for processing the
