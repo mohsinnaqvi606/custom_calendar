@@ -511,7 +511,7 @@ class _CalendarState extends State<Calendar> {
           margin: EdgeInsets.only(top: 8.0),
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: widget.bottomBarColor,
             boxShadow: [
               BoxShadow(
                 color: widget.shadowColor ?? Colors.black.withOpacity(0.2),
