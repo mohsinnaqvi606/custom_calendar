@@ -158,7 +158,7 @@ class Calendar extends StatefulWidget {
     this.datePickerType = DatePickerType.hidden,
     this.hideTodayIcon = false,
     this.hideArrows = false,
-    this.boarderColor = Colors.white,
+    required this.boarderColor,
     this.defaultDayColor = Colors.black87,
     this.defaultOutOfMonthDayColor,
     this.selectedColor = Colors.pink,
