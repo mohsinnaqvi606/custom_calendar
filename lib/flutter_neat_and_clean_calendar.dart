@@ -329,17 +329,21 @@ class _CalendarState extends State<Calendar> {
       rightArrow = Container();
     }
 
-    jumpDateIcon = GestureDetector(
-      child: Container(
-        width: 70,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-        decoration: BoxDecoration(
-            border: Border.all(color: widget.borderColor),
-            borderRadius: BorderRadius.circular(12)),
-        child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
+    jumpDateIcon = Material(
+      borderRadius: BorderRadius.circular(12),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        child: Container(
+          width: 70,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          decoration: BoxDecoration(
+              border: Border.all(color: widget.borderColor),
+              borderRadius: BorderRadius.circular(12)),
+          child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
+        ),
+        onTap: widget.onFormatChange,
       ),
-      onTap: widget.onFormatChange,
     );
 
     return Row(
@@ -505,49 +509,47 @@ class _CalendarState extends State<Calendar> {
 
   Widget get expansionButtonRow {
     if (widget.isExpandable) {
-      return GestureDetector(
-        child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(top: 16.0),
-          padding: EdgeInsets.only(top: 12, bottom: 4),
-          decoration: BoxDecoration(
-            color: widget.bottomBarColor,
-            boxShadow: [
-              BoxShadow(
-                color: widget.shadowColor ?? Colors.black.withOpacity(0.2),
-                spreadRadius: 0.1,
-                blurRadius: 2,
-                offset: Offset(
-                    0, -2), // Shadow position: offset in the upward direction
-              ),
-            ],
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 16.0),
+        padding: EdgeInsets.only(top: 12, bottom: 4),
+        decoration: BoxDecoration(
+          color: widget.bottomBarColor,
+          boxShadow: [
+            BoxShadow(
+              color: widget.shadowColor ?? Colors.black.withOpacity(0.2),
+              spreadRadius: 0.1,
+              blurRadius: 2,
+              offset: Offset(
+                  0, -2), // Shadow position: offset in the upward direction
             ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
           ),
-          alignment: Alignment.center,
-          child: Text.rich(
-            textAlign: TextAlign.center,
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: 'On Call Duties\n',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                ),
-                TextSpan(
-                    text: DateFormat(widget.expandableDateFormat, widget.locale)
-                        .format(_selectedDate)),
-              ],
-            ),
-          ),
-
-          // Text(
-          //   DateFormat(widget.expandableDateFormat, widget.locale)
-          //       .format(_selectedDate),
-          //   style: widget.bottomBarTextStyle ?? TextStyle(fontSize: 13),
-          // ),
         ),
+        alignment: Alignment.center,
+        child: Text.rich(
+          textAlign: TextAlign.center,
+          TextSpan(
+            children: [
+              TextSpan(
+                text: 'On Call Duties\n',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+              ),
+              TextSpan(
+                  text: DateFormat(widget.expandableDateFormat, widget.locale)
+                      .format(_selectedDate)),
+            ],
+          ),
+        ),
+
+        // Text(
+        //   DateFormat(widget.expandableDateFormat, widget.locale)
+        //       .format(_selectedDate),
+        //   style: widget.bottomBarTextStyle ?? TextStyle(fontSize: 13),
+        // ),
       );
     } else {
       return Container();
