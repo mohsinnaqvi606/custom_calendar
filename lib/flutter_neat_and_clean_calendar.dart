@@ -509,16 +509,16 @@ class _CalendarState extends State<Calendar> {
         child: Container(
           width: double.infinity,
           margin: EdgeInsets.only(top: 16.0),
-          padding: EdgeInsets.all(4),
+          padding: EdgeInsets.only(top: 12, bottom: 4),
           decoration: BoxDecoration(
             color: widget.bottomBarColor,
             boxShadow: [
               BoxShadow(
                 color: widget.shadowColor ?? Colors.black.withOpacity(0.2),
-                spreadRadius: 0.4,
+                spreadRadius: 0.1,
                 blurRadius: 2,
                 offset: Offset(
-                    0, -3), // Shadow position: offset in the upward direction
+                    0, -2), // Shadow position: offset in the upward direction
               ),
             ],
             borderRadius: BorderRadius.only(
