@@ -95,8 +95,7 @@ class Range {
 // The library internnaly will use a Map<DateTime, List<NeatCleanCalendarEvent>> for the events.
 
 class Calendar extends StatefulWidget {
-  final Color color;
-  final Color testColor;
+  final Color borderColor;
   final ValueChanged<DateTime>? onDateSelected;
   final ValueChanged<DateTime>? onMonthChanged;
   final ValueChanged<bool>? onExpandStateChanged;
@@ -152,14 +151,14 @@ class Calendar extends StatefulWidget {
     this.hideBottomBar = false,
     this.isExpandable = false,
     this.events,
-    this.testColor = Colors.white,
+
     this.eventsList,
     this.dayBuilder,
     this.eventListBuilder,
     this.datePickerType = DatePickerType.hidden,
     this.hideTodayIcon = false,
     this.hideArrows = false,
-    this.color = Colors.blueAccent,
+    this.borderColor = Colors.blueAccent,
     this.defaultDayColor = Colors.black87,
     this.defaultOutOfMonthDayColor,
     this.selectedColor = Colors.pink,
@@ -334,7 +333,7 @@ class _CalendarState extends State<Calendar> {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
         decoration: BoxDecoration(
-            border: Border.all(color: widget.testColor),
+            border: Border.all(color: widget.borderColor),
             borderRadius: BorderRadius.circular(12)),
         child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
       ),
