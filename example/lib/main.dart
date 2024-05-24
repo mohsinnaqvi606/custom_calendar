@@ -120,13 +120,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
           todayColor: Colors.teal,
           eventColor: null,
           onFormatChange: (){
-
             setState(() {
               isExpanded = !isExpanded;
             });
           },
           multiDayEndText: 'Ende',
           isExpanded: isExpanded,
+          boarderColor: Colors.red,
           expandableDateFormat: 'EEEE, dd. MMMM yyyy',
           datePickerType: DatePickerType.date,
           dayOfWeekStyle: TextStyle(

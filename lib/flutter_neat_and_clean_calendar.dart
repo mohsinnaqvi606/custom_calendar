@@ -137,6 +137,7 @@ class Calendar extends StatefulWidget {
   final DatePickerConfig? datePickerConfig;
   final double? eventTileHeight;
   final bool showEvents;
+  final Color boarderColor;
 
   /// Configures the date picker if enabled
 
@@ -157,6 +158,7 @@ class Calendar extends StatefulWidget {
     this.datePickerType = DatePickerType.hidden,
     this.hideTodayIcon = false,
     this.hideArrows = false,
+    this.boarderColor = Colors.white,
     this.defaultDayColor = Colors.black87,
     this.defaultOutOfMonthDayColor,
     this.selectedColor = Colors.pink,
@@ -325,19 +327,18 @@ class _CalendarState extends State<Calendar> {
       rightArrow = Container();
     }
 
-
-      jumpDateIcon = GestureDetector(
-        child: Container(
-          width: 70,
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-          decoration: BoxDecoration(
-              border: Border.all(), borderRadius: BorderRadius.circular(12)),
-          child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
-        ),
-        onTap: widget.onFormatChange,
-      );
-
+    jumpDateIcon = GestureDetector(
+      child: Container(
+        width: 70,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        decoration: BoxDecoration(
+            border: Border.all(color: widget.boarderColor),
+            borderRadius: BorderRadius.circular(12)),
+        child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
+      ),
+      onTap: widget.onFormatChange,
+    );
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
