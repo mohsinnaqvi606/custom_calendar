@@ -325,8 +325,7 @@ class _CalendarState extends State<Calendar> {
       rightArrow = Container();
     }
 
-    if (widget.datePickerType != null &&
-        widget.datePickerType != DatePickerType.hidden) {
+
       jumpDateIcon = GestureDetector(
         child: Container(
           width: 70,
@@ -338,9 +337,7 @@ class _CalendarState extends State<Calendar> {
         ),
         onTap: widget.onFormatChange,
       );
-    } else {
-      jumpDateIcon = Container();
-    }
+
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -519,7 +516,7 @@ class _CalendarState extends State<Calendar> {
             TextSpan(
               children: [
                 TextSpan(
-                  text: 'On-Call Duties\n',
+                  text: 'On Call Duties\n',
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                 ),
                 TextSpan(
