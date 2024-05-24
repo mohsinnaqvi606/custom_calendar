@@ -96,6 +96,7 @@ class Range {
 
 class Calendar extends StatefulWidget {
   final Color borderColor;
+  final Color? shadowColor;
   final ValueChanged<DateTime>? onDateSelected;
   final ValueChanged<DateTime>? onMonthChanged;
   final ValueChanged<bool>? onExpandStateChanged;
@@ -142,6 +143,7 @@ class Calendar extends StatefulWidget {
   /// Configures the date picker if enabled
 
   Calendar({
+    this.shadowColor,
     this.onFormatChange,
     this.onMonthChanged,
     this.onDateSelected,
@@ -509,12 +511,21 @@ class _CalendarState extends State<Calendar> {
           margin: EdgeInsets.only(top: 8.0),
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
-              color:
-                  widget.bottomBarColor ?? Color.fromRGBO(200, 200, 200, 0.2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              )),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: widget.shadowColor ?? Colors.black.withOpacity(0.2),
+                spreadRadius: 0.4,
+                blurRadius: 2,
+                offset: Offset(
+                    0, -3), // Shadow position: offset in the upward direction
+              ),
+            ],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+            ),
+          ),
           alignment: Alignment.center,
           child: Text.rich(
             textAlign: TextAlign.center,
