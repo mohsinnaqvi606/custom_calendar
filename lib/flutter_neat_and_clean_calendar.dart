@@ -95,6 +95,8 @@ class Range {
 // The library internnaly will use a Map<DateTime, List<NeatCleanCalendarEvent>> for the events.
 
 class Calendar extends StatefulWidget {
+  final Color color;
+  final Color testColor;
   final ValueChanged<DateTime>? onDateSelected;
   final ValueChanged<DateTime>? onMonthChanged;
   final ValueChanged<bool>? onExpandStateChanged;
@@ -137,9 +139,6 @@ class Calendar extends StatefulWidget {
   final DatePickerConfig? datePickerConfig;
   final double? eventTileHeight;
   final bool showEvents;
-  final Color color;
-  final Color testColor;
-
   /// Configures the date picker if enabled
 
   Calendar({
