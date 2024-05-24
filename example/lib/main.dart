@@ -112,7 +112,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
       body: SafeArea(
         child: Calendar(
           startOnMonday: true,
-          weekDays: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
           eventsList: _eventList,
           isExpandable: true,
           eventDoneColor: Colors.deepPurple,
@@ -120,27 +119,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
           selectedTodayColor: Colors.green,
           todayColor: Colors.teal,
           eventColor: null,
-          locale: 'de_DE',
-          todayButtonText: 'Heute',
-          allDayEventText: 'Ganztägig',
+          onFormatChange: (){
+
+            setState(() {
+              isExpanded = !isExpanded;
+            });
+          },
           multiDayEndText: 'Ende',
           isExpanded: isExpanded,
           expandableDateFormat: 'EEEE, dd. MMMM yyyy',
-          onEventSelected: (value) {
-            print('Event selected ${value.summary}');
-          },
-          onEventLongPressed: (value) {
-            print('Event long pressed ${value.summary}');
-          },
-          // onMonthChanged: (value) {
-          //   print('Month changed $value');
-          // },
-          onDateSelected: (value) {
-            print('Date selected $value');
-          },
-          onRangeSelected: (value) {
-            print('Range selected ${value.from} - ${value.to}');
-          },
           datePickerType: DatePickerType.date,
           dayOfWeekStyle: TextStyle(
               color: Colors.black, fontWeight: FontWeight.w800, fontSize: 11),

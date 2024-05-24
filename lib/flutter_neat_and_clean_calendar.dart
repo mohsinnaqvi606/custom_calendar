@@ -107,6 +107,7 @@ class Calendar extends StatefulWidget {
   final DatePickerType? datePickerType;
   final bool hideArrows;
   final bool hideTodayIcon;
+  final void Function()? onFormatChange;
   @Deprecated(
       'Use `eventsList` instead. Will be removed in NeatAndCleanCalendar 0.4.0')
   final Map<DateTime, List<NeatCleanCalendarEvent>>? events;
@@ -140,6 +141,7 @@ class Calendar extends StatefulWidget {
   /// Configures the date picker if enabled
 
   Calendar({
+    this.onFormatChange,
     this.onMonthChanged,
     this.onDateSelected,
     this.onRangeSelected,
@@ -260,7 +262,7 @@ class _CalendarState extends State<Calendar> {
                 // If the event is not an all-day event, the multi-day property gets set to true, because
                 // the difference between
                 isMultiDay: event.isAllDay ? false : true,
-                // Event spans over several days, but entreis in the list can only cover one
+                // Event spans over several days, but entries in the list can only cover one
                 // day, so the end date of one entry must be on the same day as the start.
                 multiDaySegement: MultiDaySegement.first,
                 startTime: DateTime(
@@ -323,92 +325,18 @@ class _CalendarState extends State<Calendar> {
       rightArrow = Container();
     }
 
-    if (!widget.hideTodayIcon) {
-      todayIcon = GestureDetector(
-        child: Text(widget.todayButtonText),
-        onTap: resetToToday,
-      );
-    } else {
-      todayIcon = Container();
-    }
-
     if (widget.datePickerType != null &&
         widget.datePickerType != DatePickerType.hidden) {
       jumpDateIcon = GestureDetector(
-        child: Icon(Icons.date_range_outlined),
-        onTap: () {
-          if (widget.datePickerType == DatePickerType.year) {
-            // show year picker
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Select Year"),
-                  content: Container(
-                    // Need to use container to add size constraint.
-                    width: 300,
-                    height: 300,
-                    child: YearPicker(
-                      firstDate: widget.datePickerConfig?.firstDate ??
-                          DateTime(DateTime.now().year - 100, 1),
-                      lastDate: widget.datePickerConfig?.lastDate ??
-                          DateTime(DateTime.now().year + 100, 1),
-                      initialDate: widget.datePickerConfig?.initialDate ??
-                          DateTime.now(),
-                      // save the selected date to _selectedDate DateTime variable.
-                      // It's used to set the previous selected date when
-                      // re-showing the dialog.
-                      selectedDate: _selectedDate,
-                      onChanged: (DateTime dateTime) {
-                        // close the dialog when year is selected.
-                        onJumpToDateSelected(dateTime);
-                        Navigator.pop(context);
-
-                        // Do something with the dateTime selected.
-                        // Remember that you need to use dateTime.year to get the year
-                      },
-                    ),
-                  ),
-                );
-              },
-            );
-          } else if (widget.datePickerType == DatePickerType.date) {
-            showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime(2100),
-            ).then((date) {
-              if (date != null) {
-                // The selected date is printed to the console in ISO 8601 format for debugging purposes.
-                // The "onJumpToDateSelected" callback is then invoked with the selected date.
-                // These lines have been moved outside of the "setState" block to
-                // trigger the callback methods (i.e. onMonthChanged) in the parent widget.
-                // After the callback methods are invoked, the "setState" block is called and the
-                // _selectedDate is updated. This must be done after the callback methods are invoked,
-                // otherwise the callback methods will not trigger, if the current date is equal to the
-                // selected date.
-                print('Date chosen: ${_selectedDate.toIso8601String()}');
-                onJumpToDateSelected(date);
-                setState(() {
-                  _selectedDate = date;
-                  selectedMonthsDays = _daysInMonth(_selectedDate);
-                  selectedWeekDays = Utils.daysInRange(
-                          _firstDayOfWeek(_selectedDate),
-                          _lastDayOfWeek(_selectedDate))
-                      .toList();
-                  var monthFormat = DateFormat('MMMM yyyy', widget.locale)
-                      .format(_selectedDate);
-                  displayMonth =
-                      '${monthFormat[0].toUpperCase()}${monthFormat.substring(1)}';
-                  _selectedEvents = eventsMap?[DateTime(_selectedDate.year,
-                          _selectedDate.month, _selectedDate.day)] ??
-                      [];
-                });
-              }
-            });
-          }
-        },
+        child: Container(
+          width: 70,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          decoration: BoxDecoration(
+              border: Border.all(), borderRadius: BorderRadius.circular(12)),
+          child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
+        ),
+        onTap: widget.onFormatChange,
       );
     } else {
       jumpDateIcon = Container();
@@ -580,38 +508,32 @@ class _CalendarState extends State<Calendar> {
   Widget get expansionButtonRow {
     if (widget.isExpandable) {
       return GestureDetector(
-        onTap: toggleExpanded,
         child: Container(
           color: widget.bottomBarColor ?? Color.fromRGBO(200, 200, 200, 0.2),
-          height: 40,
+          width: double.infinity,
           margin: EdgeInsets.only(top: 8.0),
-          padding: EdgeInsets.all(0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(width: 40.0),
-              Text(
-                DateFormat(widget.expandableDateFormat, widget.locale)
-                    .format(_selectedDate),
-                style: widget.bottomBarTextStyle ?? TextStyle(fontSize: 13),
-              ),
-              PlatformIconButton(
-                onPressed: toggleExpanded,
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                icon: widget.isExpanded
-                    ? Icon(
-                        Icons.arrow_drop_up,
-                        size: 25.0,
-                        color: widget.bottomBarArrowColor ?? Colors.black,
-                      )
-                    : Icon(
-                        Icons.arrow_drop_down,
-                        size: 25.0,
-                        color: widget.bottomBarArrowColor ?? Colors.black,
-                      ),
-              ),
-            ],
+          padding: EdgeInsets.all(4),
+          alignment: Alignment.center,
+          child: Text.rich(
+            textAlign: TextAlign.center,
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: 'On-Call Duties\n',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
+                TextSpan(
+                    text: DateFormat(widget.expandableDateFormat, widget.locale)
+                        .format(_selectedDate)),
+              ],
+            ),
           ),
+
+          // Text(
+          //   DateFormat(widget.expandableDateFormat, widget.locale)
+          //       .format(_selectedDate),
+          //   style: widget.bottomBarTextStyle ?? TextStyle(fontSize: 13),
+          // ),
         ),
       );
     } else {
