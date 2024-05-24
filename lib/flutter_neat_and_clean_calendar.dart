@@ -383,7 +383,7 @@ class _CalendarState extends State<Calendar> {
               primary: false,
               shrinkWrap: true,
               crossAxisCount: 7,
-              padding: EdgeInsets.only(bottom: 0.0),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               children: calendarBuilder(),
             ),
           ],
@@ -508,7 +508,7 @@ class _CalendarState extends State<Calendar> {
       return GestureDetector(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(top: 8.0),
+          margin: EdgeInsets.only(top: 16.0),
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: widget.bottomBarColor,
