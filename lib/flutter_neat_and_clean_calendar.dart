@@ -137,7 +137,7 @@ class Calendar extends StatefulWidget {
   final DatePickerConfig? datePickerConfig;
   final double? eventTileHeight;
   final bool showEvents;
-  final Color boarderColor;
+  final Color color;
 
   /// Configures the date picker if enabled
 
@@ -158,7 +158,7 @@ class Calendar extends StatefulWidget {
     this.datePickerType = DatePickerType.hidden,
     this.hideTodayIcon = false,
     this.hideArrows = false,
-    required this.boarderColor,
+    this.color = Colors.blueAccent,
     this.defaultDayColor = Colors.black87,
     this.defaultOutOfMonthDayColor,
     this.selectedColor = Colors.pink,
@@ -333,7 +333,7 @@ class _CalendarState extends State<Calendar> {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
         decoration: BoxDecoration(
-            border: Border.all(color: widget.boarderColor),
+            border: Border.all(color: widget.color),
             borderRadius: BorderRadius.circular(12)),
         child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
       ),
