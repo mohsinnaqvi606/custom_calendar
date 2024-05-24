@@ -138,6 +138,7 @@ class Calendar extends StatefulWidget {
   final DatePickerConfig? datePickerConfig;
   final double? eventTileHeight;
   final bool showEvents;
+
   /// Configures the date picker if enabled
 
   Calendar({
@@ -151,7 +152,6 @@ class Calendar extends StatefulWidget {
     this.hideBottomBar = false,
     this.isExpandable = false,
     this.events,
-
     this.eventsList,
     this.dayBuilder,
     this.eventListBuilder,
@@ -351,9 +351,7 @@ class _CalendarState extends State<Calendar> {
               Text(
                 displayMonth,
                 style: widget.displayMonthTextStyle ??
-                    TextStyle(
-                      fontSize: 20.0,
-                    ),
+                    TextStyle(fontSize: 24.0, fontWeight: FontWeight.w900),
               ),
             ],
           ),
@@ -507,10 +505,16 @@ class _CalendarState extends State<Calendar> {
     if (widget.isExpandable) {
       return GestureDetector(
         child: Container(
-          color: widget.bottomBarColor ?? Color.fromRGBO(200, 200, 200, 0.2),
           width: double.infinity,
           margin: EdgeInsets.only(top: 8.0),
           padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+              color:
+                  widget.bottomBarColor ?? Color.fromRGBO(200, 200, 200, 0.2),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              )),
           alignment: Alignment.center,
           child: Text.rich(
             textAlign: TextAlign.center,

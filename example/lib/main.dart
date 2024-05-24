@@ -50,8 +50,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       color: Colors.orange,
       isMultiDay: true,
     ),
-    NeatCleanCalendarEvent(
-      'Event X',
+    NeatCleanCalendarEvent('Event X',
         description: 'test desc',
         startTime: DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day, 10, 30),
@@ -62,18 +61,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
         isDone: true,
         icon: 'assets/event1.jpg',
         wide: false),
-    NeatCleanCalendarEvent(
-      'Allday Event B',
-      description: 'test desc',
-      startTime: DateTime(DateTime.now().year, DateTime.now().month,
-          DateTime.now().day - 2, 14, 30),
-      endTime: DateTime(DateTime.now().year, DateTime.now().month,
-          DateTime.now().day + 2, 17, 0),
-      color: Colors.pink,
-      isAllDay: true,
+    NeatCleanCalendarEvent('Allday Event B',
+        description: 'test desc',
+        startTime: DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day - 2, 14, 30),
+        endTime: DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day + 2, 17, 0),
+        color: Colors.pink,
+        isAllDay: true,
         icon: 'assets/event1.jpg',
-        wide: false
-    ),
+        wide: false),
     NeatCleanCalendarEvent(
       'Normal Event D',
       description: 'test desc',
@@ -119,7 +116,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           selectedTodayColor: Colors.green,
           todayColor: Colors.teal,
           eventColor: null,
-          onFormatChange: (){
+          onFormatChange: () {
             setState(() {
               isExpanded = !isExpanded;
             });
