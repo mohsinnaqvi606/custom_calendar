@@ -330,6 +330,7 @@ class _CalendarState extends State<Calendar> {
     }
 
     jumpDateIcon = Material(
+      color: Colors.transparent,
       borderRadius: BorderRadius.circular(12),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
