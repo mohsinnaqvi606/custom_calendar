@@ -138,6 +138,7 @@ class Calendar extends StatefulWidget {
   final double? eventTileHeight;
   final bool showEvents;
   final Color color;
+  final Color testColor;
 
   /// Configures the date picker if enabled
 
@@ -152,6 +153,7 @@ class Calendar extends StatefulWidget {
     this.hideBottomBar = false,
     this.isExpandable = false,
     this.events,
+    this.testColor = Colors.white,
     this.eventsList,
     this.dayBuilder,
     this.eventListBuilder,
@@ -333,7 +335,7 @@ class _CalendarState extends State<Calendar> {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
         decoration: BoxDecoration(
-            border: Border.all(color: widget.color),
+            border: Border.all(color: widget.testColor),
             borderRadius: BorderRadius.circular(12)),
         child: Text(widget.isExpanded ? 'Monthly' : 'Weekly'),
       ),
