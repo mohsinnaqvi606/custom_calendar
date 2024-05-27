@@ -139,6 +139,8 @@ class Calendar extends StatefulWidget {
   final DatePickerConfig? datePickerConfig;
   final double? eventTileHeight;
   final bool showEvents;
+  final ScrollController? scrollController;
+  final Future Function()? onScrollEnd;
 
   /// Configures the date picker if enabled
 
@@ -185,6 +187,8 @@ class Calendar extends StatefulWidget {
     this.datePickerConfig,
     this.eventTileHeight,
     this.showEvents = true,
+    this.scrollController,
+    this.onScrollEnd,
   });
 
   @override
@@ -215,6 +219,15 @@ class _CalendarState extends State<Calendar> {
           displayMonth =
               '${monthFormat[0].toUpperCase()}${monthFormat.substring(1)}';
         }));
+    widget.scrollController?..addListener(_listenForController);
+  }
+
+  void _listenForController() async{
+    if (widget.scrollController?.position.maxScrollExtent ==
+        widget.scrollController?.offset) {
+      await widget.onScrollEnd!();
+      _updateEventsMap();
+    }
   }
 
   /// The method [_updateEventsMap] has the purpose to update the eventsMap, when the calendar widget
