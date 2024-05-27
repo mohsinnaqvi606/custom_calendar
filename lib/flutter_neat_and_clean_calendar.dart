@@ -225,9 +225,7 @@ class _CalendarState extends State<Calendar> {
   void _listenForController() async{
     if (widget.scrollController?.position.maxScrollExtent ==
         widget.scrollController?.offset) {
-      await widget.onScrollEnd!();
-      handleSelectedDateAndUserCallback(widget.initialDate!);
-      // _updateEventsMap();
+      handleSelectedDateAndUserCallback(widget.initialDate!.add(Duration(days: 1)));
     }
   }
 
