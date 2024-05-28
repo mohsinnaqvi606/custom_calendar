@@ -228,17 +228,17 @@ class _CalendarState extends State<Calendar> {
             widget.scrollController?.offset) {
       handleSelectedDateAndUserCallback(
           widget.initialDate!.add(Duration(days: 1)));
-      Future.delayed(Duration(milliseconds: 70), () {
+      Future.delayed(Duration(milliseconds: 20), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
           widget.scrollController?.jumpTo(0);
         }
       });
     } else if ((widget.scrollController?.hasClients ?? false) &&
-        (widget.scrollController?.position.pixels ?? 0) <= -5) {
+        (widget.scrollController?.position.pixels ?? 0) <= -20) {
       handleSelectedDateAndUserCallback(
           widget.initialDate!.subtract(Duration(days: 1)));
-      Future.delayed(Duration(milliseconds: 70), () {
+      Future.delayed(Duration(milliseconds: 20), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
           widget.scrollController?.jumpTo(0);
