@@ -110,6 +110,7 @@ class Calendar extends StatefulWidget {
   final bool hideArrows;
   final bool hideTodayIcon;
   final void Function()? onFormatChange;
+  void Function(DragUpdateDetails)? onPanUpdate;
   @Deprecated(
       'Use `eventsList` instead. Will be removed in NeatAndCleanCalendar 0.4.0')
   final Map<DateTime, List<NeatCleanCalendarEvent>>? events;
@@ -189,6 +190,7 @@ class Calendar extends StatefulWidget {
     this.showEvents = true,
     this.scrollController,
     this.onScrollEnd,
+    this.onPanUpdate,
   });
 
   @override
@@ -765,13 +767,20 @@ class _CalendarState extends State<Calendar> {
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          nameAndIconRow,
-          ExpansionCrossFade(
-            collapsed: calendarGridView,
-            expanded: calendarGridView,
-            isExpanded: widget.isExpanded,
+          GestureDetector(
+            onPanUpdate: widget.onPanUpdate,
+            child: Column(
+              children: [
+                nameAndIconRow,
+                ExpansionCrossFade(
+                  collapsed: calendarGridView,
+                  expanded: calendarGridView,
+                  isExpanded: widget.isExpanded,
+                ),
+                expansionButtonRow,
+              ],
+            ),
           ),
-          expansionButtonRow,
           if (widget.showEvents) eventList
         ],
       ),
