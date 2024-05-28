@@ -226,6 +226,7 @@ class _CalendarState extends State<Calendar> {
     if (widget.scrollController?.position.maxScrollExtent ==
         widget.scrollController?.offset) {
       handleSelectedDateAndUserCallback(widget.initialDate!.add(Duration(days: 1)));
+      widget.scrollController?.animateTo(0, duration: Duration(milliseconds: 100), curve: Curves.ease);
     }
   }
 
