@@ -229,8 +229,11 @@ class _CalendarState extends State<Calendar> {
       handleSelectedDateAndUserCallback(
           widget.initialDate!.add(Duration(days: 1)));
       Future.delayed(Duration(milliseconds: 100), () {
-        widget.scrollController?.animateTo(0,
-            duration: Duration(milliseconds: 100), curve: Curves.ease);
+        if ((_selectedEvents?.isNotEmpty ?? false) &&
+            (widget.scrollController?.hasClients ?? false)) {
+          widget.scrollController?.animateTo(0,
+              duration: Duration(milliseconds: 100), curve: Curves.ease);
+        }
       });
     }
   }
