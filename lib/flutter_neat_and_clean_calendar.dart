@@ -110,7 +110,7 @@ class Calendar extends StatefulWidget {
   final bool hideArrows;
   final bool hideTodayIcon;
   final void Function()? onFormatChange;
-  void Function(DragUpdateDetails)? onPanUpdate;
+  void Function(DragEndDetails)? onPanEnd;
   @Deprecated(
       'Use `eventsList` instead. Will be removed in NeatAndCleanCalendar 0.4.0')
   final Map<DateTime, List<NeatCleanCalendarEvent>>? events;
@@ -141,7 +141,6 @@ class Calendar extends StatefulWidget {
   final double? eventTileHeight;
   final bool showEvents;
   final ScrollController? scrollController;
-  final Future Function()? onScrollEnd;
 
   /// Configures the date picker if enabled
 
@@ -189,8 +188,7 @@ class Calendar extends StatefulWidget {
     this.eventTileHeight,
     this.showEvents = true,
     this.scrollController,
-    this.onScrollEnd,
-    this.onPanUpdate,
+    this.onPanEnd,
   });
 
   @override
@@ -768,7 +766,7 @@ class _CalendarState extends State<Calendar> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           GestureDetector(
-            onPanUpdate: widget.onPanUpdate,
+            onPanEnd: widget.onPanEnd,
             child: Column(
               children: [
                 nameAndIconRow,
