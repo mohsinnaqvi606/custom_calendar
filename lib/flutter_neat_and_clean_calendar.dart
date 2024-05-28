@@ -224,8 +224,8 @@ class _CalendarState extends State<Calendar> {
 
   void _listenForController() async {
     if ((widget.scrollController?.hasClients ?? false) &&
-        (widget.scrollController?.offset ?? 0)+50 >=
-            (widget.scrollController?.position.maxScrollExtent ?? 0)) {
+        (widget.scrollController?.offset ?? 0) >=
+            (widget.scrollController?.position.maxScrollExtent ?? 0)+30) {
       handleSelectedDateAndUserCallback(
           widget.initialDate!.add(Duration(days: 1)));
       Future.delayed(Duration(milliseconds: 10), () {
