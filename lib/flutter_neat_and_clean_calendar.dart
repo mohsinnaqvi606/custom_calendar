@@ -110,7 +110,6 @@ class Calendar extends StatefulWidget {
   final bool hideArrows;
   final bool hideTodayIcon;
   final void Function()? onFormatChange;
-  final void Function(bool)? onScroll;
   void Function(DragEndDetails)? onPanEnd;
   @Deprecated(
       'Use `eventsList` instead. Will be removed in NeatAndCleanCalendar 0.4.0')
@@ -157,7 +156,6 @@ class Calendar extends StatefulWidget {
     this.hideBottomBar = false,
     this.isExpandable = false,
     this.events,
-    this.onScroll,
     this.eventsList,
     this.dayBuilder,
     this.eventListBuilder,
@@ -240,7 +238,6 @@ class _CalendarState extends State<Calendar> {
       });
     } else if ((widget.scrollController?.hasClients ?? false) &&
         (widget.scrollController?.position.pixels ?? 0) <= -70) {
-      widget.onScroll!(false);
       handleSelectedDateAndUserCallback(
           widget.initialDate!.subtract(Duration(days: 1)));
       print('moving upward');
