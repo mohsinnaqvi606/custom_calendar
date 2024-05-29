@@ -231,7 +231,7 @@ class _CalendarState extends State<Calendar> {
       Future.delayed(Duration(milliseconds: 10), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
-          widget.scrollController?.jumpTo(0);
+          // widget.scrollController?.jumpTo(0);
         }
       });
     } else if ((widget.scrollController?.hasClients ?? false) &&
@@ -241,7 +241,7 @@ class _CalendarState extends State<Calendar> {
       Future.delayed(Duration(milliseconds: 10), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
-          widget.scrollController?.jumpTo(0);
+          // widget.scrollController?.jumpTo(0);
         }
       });
     }
