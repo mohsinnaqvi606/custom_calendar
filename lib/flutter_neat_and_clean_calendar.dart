@@ -240,13 +240,13 @@ class _CalendarState extends State<Calendar> {
       });
     } else if ((widget.scrollController?.hasClients ?? false) &&
         (widget.scrollController?.position.pixels ?? 0) <= -70) {
+      widget.onScroll!(false);
       handleSelectedDateAndUserCallback(
           widget.initialDate!.subtract(Duration(days: 1)));
       print('moving upward');
       Future.delayed(Duration(milliseconds: 10), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
-          widget.onScroll!(false);
           widget.scrollController
               ?.jumpTo(widget.scrollController?.position.maxScrollExtent ?? 0);
         }
