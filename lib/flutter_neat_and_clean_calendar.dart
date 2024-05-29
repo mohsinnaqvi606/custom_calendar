@@ -223,16 +223,18 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _listenForController() async {
+    ///
     if ((widget.scrollController?.hasClients ?? false) &&
         (widget.scrollController?.offset ?? 0) >=
-            (widget.scrollController?.position.maxScrollExtent ?? 0)+10) {
+            (widget.scrollController?.position.maxScrollExtent ?? 0) + 10) {
       handleSelectedDateAndUserCallback(
           widget.initialDate!.add(Duration(days: 1)));
       Future.delayed(Duration(milliseconds: 10), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
-          // widget.scrollController?.jumpTo(0);
+           widget.scrollController?.jumpTo(0);
         }
+        print('moving upward');
       });
     } else if ((widget.scrollController?.hasClients ?? false) &&
         (widget.scrollController?.position.pixels ?? 0) <= -70) {
@@ -241,8 +243,9 @@ class _CalendarState extends State<Calendar> {
       Future.delayed(Duration(milliseconds: 10), () {
         if ((_selectedEvents?.isNotEmpty ?? false) &&
             (widget.scrollController?.hasClients ?? false)) {
-          // widget.scrollController?.jumpTo(0);
+           widget.scrollController?.jumpTo(0);
         }
+        print('moving downward');
       });
     }
   }
